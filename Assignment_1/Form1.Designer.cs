@@ -33,8 +33,6 @@
             this.gameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.networkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitMenuOption = new System.Windows.Forms.ToolStripMenuItem();
-            this.connectMenuOption = new System.Windows.Forms.ToolStripMenuItem();
-            this.disconnectMenuOption = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.sendButton = new System.Windows.Forms.Button();
             this.messageGroupBox = new System.Windows.Forms.GroupBox();
@@ -70,8 +68,6 @@
             // networkToolStripMenuItem
             // 
             this.networkToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.connectMenuOption,
-            this.disconnectMenuOption,
             this.serverMenuOption,
             this.clientMenuOption});
             this.networkToolStripMenuItem.Name = "networkToolStripMenuItem";
@@ -83,18 +79,6 @@
             this.exitMenuOption.Name = "exitMenuOption";
             this.exitMenuOption.Size = new System.Drawing.Size(180, 22);
             this.exitMenuOption.Text = "Exit";
-            // 
-            // connectMenuOption
-            // 
-            this.connectMenuOption.Name = "connectMenuOption";
-            this.connectMenuOption.Size = new System.Drawing.Size(180, 22);
-            this.connectMenuOption.Text = "Connect";
-            // 
-            // disconnectMenuOption
-            // 
-            this.disconnectMenuOption.Name = "disconnectMenuOption";
-            this.disconnectMenuOption.Size = new System.Drawing.Size(180, 22);
-            this.disconnectMenuOption.Text = "Disconnect";
             // 
             // contextMenuStrip1
             // 
@@ -143,6 +127,7 @@
             this.convTextBox.Location = new System.Drawing.Point(7, 20);
             this.convTextBox.Multiline = true;
             this.convTextBox.Name = "convTextBox";
+            this.convTextBox.ReadOnly = true;
             this.convTextBox.Size = new System.Drawing.Size(845, 278);
             this.convTextBox.TabIndex = 0;
             // 
@@ -151,12 +136,14 @@
             this.serverMenuOption.Name = "serverMenuOption";
             this.serverMenuOption.Size = new System.Drawing.Size(180, 22);
             this.serverMenuOption.Text = "Server";
+            this.serverMenuOption.Click += new System.EventHandler(this.serverMenuOption_Click);
             // 
             // clientMenuOption
             // 
             this.clientMenuOption.Name = "clientMenuOption";
             this.clientMenuOption.Size = new System.Drawing.Size(180, 22);
             this.clientMenuOption.Text = "Client";
+            this.clientMenuOption.Click += new System.EventHandler(this.clientMenuOption_Click);
             // 
             // Form1
             // 
@@ -187,8 +174,6 @@
         private System.Windows.Forms.ToolStripMenuItem gameToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitMenuOption;
         private System.Windows.Forms.ToolStripMenuItem networkToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem connectMenuOption;
-        private System.Windows.Forms.ToolStripMenuItem disconnectMenuOption;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.Button sendButton;
         private System.Windows.Forms.GroupBox messageGroupBox;
