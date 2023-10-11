@@ -1,4 +1,6 @@
-﻿namespace Assignment_1
+﻿using System;
+
+namespace Assignment_1
 {
     partial class Form1
     {
@@ -31,16 +33,16 @@
             this.components = new System.ComponentModel.Container();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.gameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.networkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitMenuOption = new System.Windows.Forms.ToolStripMenuItem();
+            this.networkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.serverMenuOption = new System.Windows.Forms.ToolStripMenuItem();
+            this.clientMenuOption = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.sendButton = new System.Windows.Forms.Button();
             this.messageGroupBox = new System.Windows.Forms.GroupBox();
             this.messageTextBox = new System.Windows.Forms.TextBox();
             this.convGroupBox = new System.Windows.Forms.GroupBox();
             this.convTextBox = new System.Windows.Forms.TextBox();
-            this.serverMenuOption = new System.Windows.Forms.ToolStripMenuItem();
-            this.clientMenuOption = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.messageGroupBox.SuspendLayout();
             this.convGroupBox.SuspendLayout();
@@ -65,6 +67,12 @@
             this.gameToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
             this.gameToolStripMenuItem.Text = "Game";
             // 
+            // exitMenuOption
+            // 
+            this.exitMenuOption.Name = "exitMenuOption";
+            this.exitMenuOption.Size = new System.Drawing.Size(93, 22);
+            this.exitMenuOption.Text = "Exit";
+            // 
             // networkToolStripMenuItem
             // 
             this.networkToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -74,11 +82,19 @@
             this.networkToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
             this.networkToolStripMenuItem.Text = "Network";
             // 
-            // exitMenuOption
+            // serverMenuOption
             // 
-            this.exitMenuOption.Name = "exitMenuOption";
-            this.exitMenuOption.Size = new System.Drawing.Size(180, 22);
-            this.exitMenuOption.Text = "Exit";
+            this.serverMenuOption.Name = "serverMenuOption";
+            this.serverMenuOption.Size = new System.Drawing.Size(106, 22);
+            this.serverMenuOption.Text = "Server";
+            this.serverMenuOption.Click += new System.EventHandler(this.serverMenuOption_Click);
+            // 
+            // clientMenuOption
+            // 
+            this.clientMenuOption.Name = "clientMenuOption";
+            this.clientMenuOption.Size = new System.Drawing.Size(106, 22);
+            this.clientMenuOption.Text = "Client";
+            this.clientMenuOption.Click += new System.EventHandler(this.clientMenuOption_Click);
             // 
             // contextMenuStrip1
             // 
@@ -93,6 +109,7 @@
             this.sendButton.TabIndex = 5;
             this.sendButton.Text = "Send";
             this.sendButton.UseVisualStyleBackColor = true;
+            this.sendButton.Click += new System.EventHandler(this.sendButton_Click);
             // 
             // messageGroupBox
             // 
@@ -131,20 +148,6 @@
             this.convTextBox.Size = new System.Drawing.Size(845, 278);
             this.convTextBox.TabIndex = 0;
             // 
-            // serverMenuOption
-            // 
-            this.serverMenuOption.Name = "serverMenuOption";
-            this.serverMenuOption.Size = new System.Drawing.Size(180, 22);
-            this.serverMenuOption.Text = "Server";
-            this.serverMenuOption.Click += new System.EventHandler(this.serverMenuOption_Click);
-            // 
-            // clientMenuOption
-            // 
-            this.clientMenuOption.Name = "clientMenuOption";
-            this.clientMenuOption.Size = new System.Drawing.Size(180, 22);
-            this.clientMenuOption.Text = "Client";
-            this.clientMenuOption.Click += new System.EventHandler(this.clientMenuOption_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -167,6 +170,7 @@
             this.PerformLayout();
 
         }
+
 
         #endregion
 
