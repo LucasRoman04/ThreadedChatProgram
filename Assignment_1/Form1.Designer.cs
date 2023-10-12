@@ -43,7 +43,6 @@ namespace Assignment_1
             this.messageTextBox = new System.Windows.Forms.TextBox();
             this.convGroupBox = new System.Windows.Forms.GroupBox();
             this.convTextBox = new System.Windows.Forms.TextBox();
-            this.connectMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.disconnectMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.messageGroupBox.SuspendLayout();
@@ -80,7 +79,6 @@ namespace Assignment_1
             this.networkToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.serverMenuOption,
             this.clientMenuOption,
-            this.connectMenuItem,
             this.disconnectMenuItem});
             this.networkToolStripMenuItem.Name = "networkToolStripMenuItem";
             this.networkToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
@@ -132,6 +130,7 @@ namespace Assignment_1
             this.messageTextBox.Name = "messageTextBox";
             this.messageTextBox.Size = new System.Drawing.Size(762, 20);
             this.messageTextBox.TabIndex = 4;
+            this.messageTextBox.TextChanged += new System.EventHandler(this.messageTextBox_TextChanged);
             // 
             // convGroupBox
             // 
@@ -151,13 +150,7 @@ namespace Assignment_1
             this.convTextBox.ReadOnly = true;
             this.convTextBox.Size = new System.Drawing.Size(845, 278);
             this.convTextBox.TabIndex = 0;
-            // 
-            // connectMenuItem
-            // 
-            this.connectMenuItem.Name = "connectMenuItem";
-            this.connectMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.connectMenuItem.Text = "Connect";
-            this.connectMenuItem.Click += new System.EventHandler(this.connectMenuItem_Click);
+            this.convTextBox.TextChanged += new System.EventHandler(this.convTextBox_TextChanged);
             // 
             // disconnectMenuItem
             // 
@@ -204,7 +197,6 @@ namespace Assignment_1
         private System.Windows.Forms.TextBox convTextBox;
         private System.Windows.Forms.ToolStripMenuItem serverMenuOption;
         private System.Windows.Forms.ToolStripMenuItem clientMenuOption;
-        private System.Windows.Forms.ToolStripMenuItem connectMenuItem;
         private System.Windows.Forms.ToolStripMenuItem disconnectMenuItem;
     }
 }

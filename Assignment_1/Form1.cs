@@ -34,7 +34,22 @@ namespace Assignment_1
 
         private void sendButton_Click(object sender, EventArgs e)
         {
+            string message = messageTextBox.Text;
 
+            if (!string.IsNullOrEmpty(message))
+            {
+                // Display the message in the chatTextBox.
+                DisplayMessage(message);
+
+                // Send the message to the server (if you are the client).
+                if (!isServerRunning)
+                {
+                    SendMessageToServer(message);
+                }
+
+                // Clear the input box.
+                messageTextBox.Text = "";
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -52,60 +67,67 @@ namespace Assignment_1
             RunClient("127.0.0.1", "Hello From Client!");
         }
 
-        private void connectMenuItem_Click(object sender, EventArgs e)
+        private void messageTextBox_TextChanged(object sender, EventArgs e)
         {
-            ConnectServer();
+
+        }
+
+        private void convTextBox_TextChanged(object sender, EventArgs e)
+        {
+
         }
 
         private void disconnectMenuItem_Click(object sender, EventArgs e)
         {
-            DisconnectServer();
+
+        }
+
+        private void DisplayMessage(string message)
+        {
+            if (convTextBox.InvokeRequired)
+            {
+                convTextBox.Invoke((MethodInvoker)(() =>
+                {
+                    convTextBox.AppendText(message + Environment.NewLine);
+                }));
+            }
+            else
+            {
+                convTextBox.AppendText(message + Environment.NewLine);
+            }
         }
 
         private void RunServer(int port = 13000)
         {
             Task.Run(() =>
             {
-                TcpListener server = null;
                 try
                 {
                     // Set the TcpListener on port 13000.
-                    // Int32 port = 13000;
                     IPAddress localAddr = IPAddress.Parse("127.0.0.1");
 
-                    // TcpListener server = new TcpListener(port);
                     server = new TcpListener(localAddr, port);
-
-                    // Start listening for client requests.
                     server.Start();
                     isServerRunning = true; // Indicate that the server is running
 
-                    // Buffer for reading data
                     Byte[] bytes = new Byte[256];
                     String data = null;
 
-                    // Enter the listening loop.
                     while (true)
                     {
                         Console.Write("Waiting for a connection... ");
 
-                        // Perform a blocking call to accept requests.
-                        // You could also user server.AcceptSocket() here.
                         TcpClient client = server.AcceptTcpClient();
                         Console.WriteLine("Connected!");
-                        // HandleClient(client);
 
                         data = null;
 
-                        // Get a stream object for reading and writing
-                        NetworkStream stream = client.GetStream();
+                        stream = client.GetStream();
 
                         int i;
 
-                        // Loop to receive all the data sent by the client.
                         while ((i = stream.Read(bytes, 0, bytes.Length)) != 0)
                         {
-                            // Translate data bytes to a ASCII string.
                             data = System.Text.Encoding.ASCII.GetString(bytes, 0, i);
                             Console.WriteLine("Received: {0}", data);
 
@@ -114,13 +136,16 @@ namespace Assignment_1
 
                             byte[] msg = System.Text.Encoding.ASCII.GetBytes(data);
 
+                            // Display the received message in the chatTextBox.
+                            DisplayMessage("Client: " + data + "\n");
+
                             // Send back a response.
                             stream.Write(msg, 0, msg.Length);
                             Console.WriteLine("Sent: {0}", data);
                         }
 
-                        // Shutdown and end connection
-                        client.Close();
+                        // Handle disconnection by breaking out of the inner loop
+                        Console.WriteLine("Client disconnected.");
                     }
                 }
                 catch (SocketException e)
@@ -129,12 +154,8 @@ namespace Assignment_1
                 }
                 finally
                 {
-                    // Stop listening for new clients.
                     server.Stop();
                 }
-
-                Console.WriteLine("\nHit enter to continue...");
-                Console.Read();
             });
         }
 
@@ -142,30 +163,13 @@ namespace Assignment_1
         {
             try
             {
-                // Create a TcpClient.
-                // Note, for this client to work you need to have a TcpServer 
-                // connected to the same address as specified by the server, port
-                // combination.
                 Int32 port = 13000;
                 TcpClient client = new TcpClient(server, port);
                 isServerRunning = true; // Indicate that the client is connected to the server
 
-                // Translate the passed message into ASCII and store it as a Byte array.
                 Byte[] data = System.Text.Encoding.ASCII.GetBytes(message);
-
-                // Get a client stream for reading and writing.
-                //  Stream stream = client.GetStream();
-
                 NetworkStream stream = client.GetStream();
 
-                // Send the message to the connected TcpServer. 
-                stream.Write(data, 0, data.Length);
-
-                Console.WriteLine(">> {0}", message);
-
-                // Receive the TcpServer.response.
-
-                // Buffer to store the response bytes.
                 data = new Byte[256];
 
                 // String to store the response ASCII representation.
@@ -175,6 +179,19 @@ namespace Assignment_1
                 Int32 bytes = stream.Read(data, 0, data.Length);
                 responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
                 Console.WriteLine("Received: {0}", responseData);
+
+                // Send the message to the server.
+                stream.Write(data, 0, data.Length);
+                DisplayMessage("Client: " + message + "\n");
+
+                Console.WriteLine(">> {0}", message);
+
+                // Receive the server's response.
+                while ((bytes = stream.Read(data, 0, data.Length)) != 0)
+                {
+                    responseData = System.Text.Encoding.ASCII.GetString(data, 0, bytes);
+                    DisplayMessage("Server: " + responseData);
+                }
 
                 // Close everything.
                 stream.Close();
@@ -188,61 +205,15 @@ namespace Assignment_1
             {
                 Console.WriteLine("SocketException: {0}", e);
             }
+            catch (Exception ex)
+            {
+                // Handle exceptions
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
             Console.WriteLine("\n Press Enter to continue...");
             Console.Read();
         }
-
-        private void DisconnectServer()
-        {
-            try
-            {
-                // For example, you can close the network stream and the client.
-                if (client != null)
-                {
-                    stream.Close();
-                    client.Close();
-                    MessageBox.Show("Disconnected from the server.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-
-                else
-                {
-                    MessageBox.Show("Not connected to the server.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-            catch (Exception ex)
-            {
-                // Handle any exceptions that may occur during the disconnect process.
-                MessageBox.Show("Error disconnecting from server: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void ConnectServer()
-        {
-            // Ensure the server is running before attempting to connect
-            if (isServerRunning)
-            {
-                try
-                {
-                    stream = client.GetStream();
-                }
-
-                catch (ArgumentNullException ex)
-                {
-                    MessageBox.Show($"Argument Null Exception: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-
-                catch (SocketException ex)
-                {
-                    MessageBox.Show($"Socket Exception: {ex.Message}");
-                }
-
-            }
-            else
-            {
-                MessageBox.Show("Server is not running. Please start the server first.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }    
 
         private void ExitApplication()
         {
@@ -257,6 +228,31 @@ namespace Assignment_1
                 MessageBox.Show("Error exiting application: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void SendMessageToServer(string message)
+        {
+            try
+            {
+                // Translate the message into ASCII and send it to the server.
+                Byte[] data = System.Text.Encoding.ASCII.GetBytes(message);
+
+                if (stream != null)
+                {
+                    stream.Write(data, 0, data.Length);
+                    DisplayMessage("You: " + message); // Display the sent message in the chat box
+                }
+                else
+                {
+                    MessageBox.Show("Not connected to the server.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions
+                MessageBox.Show("Error sending message: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         
     }
 }
