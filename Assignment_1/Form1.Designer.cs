@@ -37,13 +37,13 @@ namespace Assignment_1
             this.networkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.serverMenuOption = new System.Windows.Forms.ToolStripMenuItem();
             this.clientMenuOption = new System.Windows.Forms.ToolStripMenuItem();
+            this.disconnectMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.sendButton = new System.Windows.Forms.Button();
             this.messageGroupBox = new System.Windows.Forms.GroupBox();
             this.messageTextBox = new System.Windows.Forms.TextBox();
             this.convGroupBox = new System.Windows.Forms.GroupBox();
             this.convTextBox = new System.Windows.Forms.TextBox();
-            this.disconnectMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.messageGroupBox.SuspendLayout();
             this.convGroupBox.SuspendLayout();
@@ -98,6 +98,13 @@ namespace Assignment_1
             this.clientMenuOption.Text = "Client";
             this.clientMenuOption.Click += new System.EventHandler(this.clientMenuOption_Click);
             // 
+            // disconnectMenuItem
+            // 
+            this.disconnectMenuItem.Name = "disconnectMenuItem";
+            this.disconnectMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.disconnectMenuItem.Text = "Disconnect";
+            this.disconnectMenuItem.Click += new System.EventHandler(this.disconnectMenuItem_Click);
+            // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Name = "contextMenuStrip1";
@@ -151,13 +158,6 @@ namespace Assignment_1
             this.convTextBox.Size = new System.Drawing.Size(845, 278);
             this.convTextBox.TabIndex = 0;
             this.convTextBox.TextChanged += new System.EventHandler(this.convTextBox_TextChanged);
-            // 
-            // disconnectMenuItem
-            // 
-            this.disconnectMenuItem.Name = "disconnectMenuItem";
-            this.disconnectMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.disconnectMenuItem.Text = "Disconnect";
-            this.disconnectMenuItem.Click += new System.EventHandler(this.disconnectMenuItem_Click);
             // 
             // Form1
             // 
