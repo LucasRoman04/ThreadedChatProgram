@@ -43,6 +43,8 @@ namespace Assignment_1
             this.messageTextBox = new System.Windows.Forms.TextBox();
             this.convGroupBox = new System.Windows.Forms.GroupBox();
             this.convTextBox = new System.Windows.Forms.TextBox();
+            this.connectMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.disconnectMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.messageGroupBox.SuspendLayout();
             this.convGroupBox.SuspendLayout();
@@ -77,7 +79,9 @@ namespace Assignment_1
             // 
             this.networkToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.serverMenuOption,
-            this.clientMenuOption});
+            this.clientMenuOption,
+            this.connectMenuItem,
+            this.disconnectMenuItem});
             this.networkToolStripMenuItem.Name = "networkToolStripMenuItem";
             this.networkToolStripMenuItem.Size = new System.Drawing.Size(64, 20);
             this.networkToolStripMenuItem.Text = "Network";
@@ -85,14 +89,14 @@ namespace Assignment_1
             // serverMenuOption
             // 
             this.serverMenuOption.Name = "serverMenuOption";
-            this.serverMenuOption.Size = new System.Drawing.Size(106, 22);
+            this.serverMenuOption.Size = new System.Drawing.Size(180, 22);
             this.serverMenuOption.Text = "Server";
             this.serverMenuOption.Click += new System.EventHandler(this.serverMenuOption_Click);
             // 
             // clientMenuOption
             // 
             this.clientMenuOption.Name = "clientMenuOption";
-            this.clientMenuOption.Size = new System.Drawing.Size(106, 22);
+            this.clientMenuOption.Size = new System.Drawing.Size(180, 22);
             this.clientMenuOption.Text = "Client";
             this.clientMenuOption.Click += new System.EventHandler(this.clientMenuOption_Click);
             // 
@@ -148,6 +152,20 @@ namespace Assignment_1
             this.convTextBox.Size = new System.Drawing.Size(845, 278);
             this.convTextBox.TabIndex = 0;
             // 
+            // connectMenuItem
+            // 
+            this.connectMenuItem.Name = "connectMenuItem";
+            this.connectMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.connectMenuItem.Text = "Connect";
+            this.connectMenuItem.Click += new System.EventHandler(this.connectMenuItem_Click);
+            // 
+            // disconnectMenuItem
+            // 
+            this.disconnectMenuItem.Name = "disconnectMenuItem";
+            this.disconnectMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.disconnectMenuItem.Text = "Disconnect";
+            this.disconnectMenuItem.Click += new System.EventHandler(this.disconnectMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -186,6 +204,8 @@ namespace Assignment_1
         private System.Windows.Forms.TextBox convTextBox;
         private System.Windows.Forms.ToolStripMenuItem serverMenuOption;
         private System.Windows.Forms.ToolStripMenuItem clientMenuOption;
+        private System.Windows.Forms.ToolStripMenuItem connectMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem disconnectMenuItem;
     }
 }
 
